@@ -1,71 +1,37 @@
 #include "holberton.h"
+
 /**
- * _printf - is a function that formats and prints data
- * @format: format of data
- * Return: number of characters printed
+ * _printf - Receives the main string and all the necessary parameters to
+ * print a formated string
+ * @format: A string containing all the desired characters
+ * Return: A total count of the characters printed
  */
 int _printf(const char *format, ...)
 {
-	const char *p;
-	unsigned int i;
-	int j;
-	int k = 0;
-	va_list conspec;
-	char *s;
+	int printed_chars;
+	conver_t f_list[] = {
+		{"c", print_char},
+		{"s", print_string},
+		{"%", print_percent},
+		{"d", print_integer},
+		{"i", print_integer},
+		{"b", print_binary},
+		{"r", print_reversed},
+		{"R", rot13},
+		{"u", unsigned_integer},
+		{"o", print_octal},
+		{"x", print_hex},
+		{"X", print_heX},
+		{NULL, NULL}
+	};
+	va_list arg_list;
 
-	if (!format)
-	{
+	if (format == NULL)
 		return (-1);
-	}
-	va_start(conspec, format);
-	for (p = format; *p != '\0'; p++)
-	{
-		if (*p != '%')
-		{
-			_putchar(*p, &k);
-			continue;
-		}
-		p++;
-		switch (*p)
-		{
-		case 'c':
-			i = va_arg(conspec, int);
-			_putchar(i, &k);
-			break;
-		case 's':
-			s = va_arg(conspec, char *);
-			_puts(s, &k);
-			break;
-		case '%':
-			_putchar('%', &k);
-			break;
-		case 'd':
-			j = va_arg(conspec, int);
-			_print_number(j, &k);
-			break;
-		case 'i':
-			j = va_arg(conspec, int);
-			_print_number(j, &k);
-			break;
-		case 'r':
-			s = va_arg(conspec, char *);
-			_rev_string(s, &k);
-			break;
-		case 'b':
-			i = va_arg(conspec, int);
-			_print_binary(i, &k);
-			break;
-		case 'R':
-			s = va_arg(conspec, char *);
-			_rot13(s, &k);
-			break;
-		case '\0':
-			return (-1);
-		default:
-			_putchar('%', &k);
-			_putchar(*p, &k);
-		}
-	}
-	va_end(conspec);
-	return (k);
+
+	va_start(arg_list, format);
+	/*Calling parser function*/
+	printed_chars = parser(format, f_list, arg_list);
+	va_end(arg_list);
+	return (printed_chars);
 }

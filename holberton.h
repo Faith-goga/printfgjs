@@ -1,15 +1,46 @@
-#ifndef HOL_H
-#define HOL_H
+#ifndef PRINT_F
+#define PRINT_F
+
+#include <unistd.h>
+#include <stdlib.h>
 #include <stdarg.h>
-/*Structs*/
-/*Typedefs*/
-/*Prototypes*/
-int _putchar(char c, int *k);
-void _puts(char *str, int *k);
+
+/**
+* struct convert - defines a structure for symbols and functions
+*
+* @sym: The operator
+* @f: The function associated
+*/
+struct convert
+{
+	char *sym;
+	int (*f)(va_list);
+};
+typedef struct convert conver_t;
+
+/*Main functions*/
+int parser(const char *format, conver_t f_list[], va_list arg_list);
 int _printf(const char *format, ...);
-void _print_number(int n, int *k);
-void _rev_string(char *s, int *k);
-int _strlen(char *s);
-void _print_binary(int n, int *k);
-void _rot13(char *s, int *k);
+int _write_char(char);
+int print_char(va_list);
+int print_string(va_list);
+int print_percent(va_list);
+int print_integer(va_list);
+int print_number(va_list);
+int print_binary(va_list);
+int print_reversed(va_list arg);
+int rot13(va_list);
+int unsigned_integer(va_list);
+int print_octal(va_list list);
+int print_hex(va_list list);
+int print_heX(va_list list);
+
+/*Helper functions*/
+unsigned int base_len(unsigned int, int);
+char *rev_string(char *);
+void write_base(char *str);
+char *_memcpy(char *dest, char *src, unsigned int n);
+int print_unsgined_number(unsigned int);
+
+
 #endif
