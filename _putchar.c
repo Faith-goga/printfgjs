@@ -1,13 +1,14 @@
+#include"holberton.h"
 #include <unistd.h>
-
 /**
- * _write - writes the character c to stdout
+ * _putchar - writes the character c to stdout
  * @c: The character to print
- *
+ * @k: counter through string
  * Return: On success 1.
  * On error, -1 is returned, and errno is set appropriately.
  */
-int _write(char c)
+int _putchar(char c, int *k)
 {
+	*k += 1;
 	return (write(1, &c, 1));
 }
