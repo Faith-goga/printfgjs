@@ -1,38 +1,29 @@
 #ifndef HOLBERTON_H
 #define HOLBERTON_H
-
 #include <stdarg.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <limits.h>
-#include <stdlib.h>
 
 /**
-* struct types_arguments - Struct op
-* @t: The operator
-* @f: The function
-*/
-typedef struct types_arguments
+  * struct specifiers - Struct specifiers
+  * @specifier: The conversion specifier
+  * @f: The function pointer
+  */
+typedef struct specifiers
 {
-	char t;
-	int (*f)(va_list vl);
-} funcs;
+	char *specifier;
+	int (*f)(va_list args);
+} spc_dt;
 
-int _putchar(char c);
-int print_char(va_list vl);
-int print_string(va_list vl);
-int print_number(va_list vl);
-void print_num_rec(int n);
-int print_rev(va_list vl);
-int print_rot13(va_list vl);
-int print_binary(va_list vl);
-int print_unsigned(va_list vl);
-int print_octal(va_list vl);
-int print_hex_lower(va_list vl);
-int print_hex_upper(va_list vl);
-int print_hex(unsigned long int c, int cap);
-int print_pointer(va_list vl);
-int print_special_chars(va_list vl);
+int _write(char c);
 int _printf(const char *format, ...);
+int _print_a_char(va_list args);
+int _print_a_string(va_list args);
+int _print_format(const char *format, va_list args);
+int _print_spec(char format, va_list args);
+int _print_invalid_spec(char prev_format, char format, int count);
+int _print_a_integer(va_list args);
+void _recursion_integer(int a);
+int _print_int_binary(va_list args);
+void _recursion_int_binary(int a);
+int _validate_char(char _type);
 
-#endif
+#endif /* _HOLBERTON */

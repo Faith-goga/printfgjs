@@ -1,173 +1,88 @@
-# _printf
-A tiny implementation of the built-in printf funtion. The function `_printf` currently handles the following conversion specifiers:
+# The awesome _printf() function
 
-| Symbol | Operation |
-|--|--|
-| `c` | Prints character |
-| `s` | Prints string |
-| `%` | Prints percent sign |
-| `d` | Prints an integer |
-| `i` | Prints an integer |
-| `b` | Prints a binary |
-| `u` | Prints an unsigned integer |
-| `o` | Prints an octal number |
-| `x` | Converts from decimal and prints lowercase hexadecimal |
-| `X` | Converts from decimal and prints upper hexadecimal |
-| `S` | Prints Non printable characters this way: \x, followed by the ASCII code value in hexadecimal |
-| `p` | Prints a pointer (address) in hex |
-| `r` | prints a string in reverse|
-| `R` | Encodes and prints string using `rot13` |
+**_printf** - formatted output conversion
 
-## Getting Started
-Quick start guide of `printf`.
+**#include "holberton.h"**
+**int _printf(const char** *format* **, ...);**
 
-### 1. Install
-Run the following commands:
-```
-$ git clone https://github.com/Koderua/printf.git
-```
+## Description
+The **_printf()** function produce output according to a *format* as described below. Also, write output to *stdout*, the standard output stream.
 
-```
-cd printf
-```
+The  **_printf()** function write the output under the control of a format string that specifies how subsequent arguments (or arguments accessed via the variable-length argument facilities of ***stdarg(3)*** are converted for output.
 
-### 2. main.c
-```
-touch main.c
-```
+### Format of the format string
 
-paste this in `main.c` file to compile it with. Go ahead and try the following:
-```
-#include <limits.h>
-#include <stdio.h>
-#include "holberton.h"
+The format string is a character string, beginning and ending inits  initial shift state, if any. The format string is composed of zero or more  directives:  ordinary  characters  (not %), which are copied unchanged to the output stream; and conversion specifications, each of which results in fetching zero or more subsequent arguments.
+Each conversion specification is introduced by the character % and ends with conversion specifier.
 
-/**
- * main - Entry point
- *
- * Return: Always 0
- */
-int main(void)
-{
-    int len;
-    int len2;
-    unsigned int ui;
-    void *addr;
+### Conversion specifiers
+A character that specifies the type of conversion to be applied. The conversion specifiers and their meaning are:
+-  **d, i**: The **_int_** argument should be signed decimal notation, and the resulting number is written.
+-  **c**: The **_int_** argument is converted to a char, and the resulting character is written.
+-  **s**: The **_const char_** * argument is expected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up  to  (but not including) a terminating null byte ('\0').
+- **%**: A '**%**' is written. No argument is converted. The complete conversion specification is '**%%**'.
 
-    len = _printf("Let's try to printf a simple sentence.\n");
-    len2 = printf("Let's try to printf a simple sentence.\n");
-    ui = (unsigned int)INT_MAX + 1024;
-    addr = (void *)0x7ffe637541f0;
-    _printf("Length:[%d, %i]\n", len, len);
-    printf("Length:[%d, %i]\n", len2, len2);
-    _printf("Negative:[%d]\n", -762534);
-    printf("Negative:[%d]\n", -762534);
-    _printf("Unsigned:[%u]\n", ui);
-    printf("Unsigned:[%u]\n", ui);
-    _printf("Unsigned octal:[%o]\n", ui);
-    printf("Unsigned octal:[%o]\n", ui);
-    _printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
-    printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
-    _printf("Character:[%c]\n", 'H');
-    printf("Character:[%c]\n", 'H');
-    _printf("String:[%s]\n", "I am a string !");
-    printf("String:[%s]\n", "I am a string !");
-    _printf("Address:[%p]\n", addr);
-    printf("Address:[%p]\n", addr);
-    len = _printf("Percent:[%%]\n");
-    len2 = printf("Percent:[%%]\n");
-    _printf("Len:[%d]\n", len);
-    printf("Len:[%d]\n", len2);
-    _printf("Unknown:[%r]\n", "hello);
-    printf("Unknown:[%r]\n");
-    return (0);
-}
-```
+## About Functions
 
-### 3. Compile
-Use the following command to compile
-```
-$ gcc -Wall -Werror -Wextra -pedantic -Wno-format *.c
-```
+### int _write(char c)
+This function gets a char parameter and writes the parameter to the stdout, the standard output stream.
 
-### 4. Run the binary
-Going along with our sample code above, you would hopefully see this output:
-```
-$ ./a.out
-Let's try to printf a simple sentence.
-Let's try to printf a simple sentence.
-Length:[39, 39]
-Length:[39, 39]
-Negative:[-762534]
-Negative:[-762534]
-Unsigned:[2147484671]
-Unsigned:[2147484671]
-Unsigned octal:[20000001777]
-Unsigned octal:[20000001777]
-Unsigned hexadecimal:[800003ff, 800003FF]
-Unsigned hexadecimal:[800003ff, 800003FF]
-Character:[H]
-Character:[H]
-String:[I am a string !]
-String:[I am a string !]
-Address:[0x7ffe637541f0]
-Address:[0x7ffe637541f0]
-Percent:[%]
-Percent:[%]
-Len:[12]
-Len:[12]
-Unknown:[%olleh]
-Unknown:[%r]
-$
-```
+### int _print_a_char (va_list args)
+This function gets a variadic arguments list, traverse the list, prints each character of char type and returns
+the length of the character.
 
-## Environment Information
-| Aspect | Version |
-|--|--|
-| **Language** | C |
-| **Operating System** | Ubuntu 14.04 LTS |
-| **Compiler** | `gcc 4.8.4` |
-| **Style Guidelines** | [`Betty`](https://github.com/holbertonschool/Betty/blob/master/betty-style.pl "betty-style.pl") |
+### int _print_a_string (va_list args)
+This function gets a variadic arguments list, traverse the list, prints each string and returns the length of the
+string.
 
-## Project Requirements
--   Allowed editors:  `vi`,  `vim`,  `emacs`
--   All your files will be compiled on Ubuntu 14.04 LTS
--   Your programs and functions will be compiled with  `gcc 4.8.4`  using the flags  `-Wall`  `-Werror`  `-Wextra`  `and -pedantic`
--   All your files should end with a new line
--   A  `README.md`  file, at the root of the folder of the project is mandatory
--   Your code should use the  `Betty`  style. It will be checked using  [betty-style.pl](https://github.com/holbertonschool/Betty/blob/master/betty-style.pl "betty-style.pl")  and  [betty-doc.pl](https://github.com/holbertonschool/Betty/blob/master/betty-doc.pl "betty-doc.pl")
--   You are not allowed to use global variables
--   No more than 5 functions per file
--   In the following examples, the  `main.c`  files are shown as examples. You can use them to test your functions, but you don’t have to push them to your repo (if you do we won’t take them into account). We will use our own  `main.c`  files at compilation. Our  `main.c`  files might be different from the one shown in the examples
--   The prototypes of all your functions should be included in your header file called  `holberton.h`
--   Don’t forget to push your header file
--   All your header files should be include guarded
--   Authorized functions and macros:
-    -   `write`  (`man 2 write`)
-    -   `malloc`  (`man 3 malloc`)
-    -   `free`  (`man 3 free`)
-    -   `va_start`  (`man 3 va_start`)
-    -   `va_end`  (`man 3 va_end`)
-    -   `va_copy`  (`man 3 va_copy`)
-    -   `va_arg`  (`man 3 va_arg`)
--   Note that we will not provide the  `_putchar`  function for this project
+### int _print_a_integer (va_list args)
+This function gets a variadic arguments list, traverse the list, prints each number of int type and returns the
+length of the integer.
 
-## Future Todos
-- Use a local buffer of 1024 chars in order to call write as little as possible.
-- Handle the following flag characters for non-custom conversion specifiers:
-   - '+'
-   - space
-   - '#'
-- Handle the following length modifiers for non-custom conversion specifiers:
-     - l
-     - h
-   - Conversion specifiers to handle: d, i, u, o, x, X
-- Handle the field width for non-custom conversion specifiers.
-- Handle the precision for non-custom conversion specifiers.
-- Handle the 0 flag character for non-custom conversion specifiers.
-- Handle the - flag character for non-custom conversion specifiers.
+### int _print_format (const char *format, va_list args)
+This function gets a format to be printed and a variadic arguments list, next to check if the
+format is valid or invalid and according with the verification the resulting output is written to the standard output stream and returns the format length.
 
-### Authors
+### int _print_spec (char format, va_list args):
+This function gets a format valid to be printed and a variadic arguments list to find the format in the
+list and selects the appropriate function to execute and writes the format to the standard output stream and returns the length of the valid format.
 
-- **Kibi**
-- **Dev**
+### int _print_invalid_spec (char prev_format, char format, int count)
+This function gets the previous format of the current format, the actual format and the current count of printed characters. Next, the invalid format is written to the standard output stream and returns the length of the invalid format.
+
+### void _recursion_integer(int a)
+This function gets an integer and prints the last digit of the number as recursion is applied.
+
+### int _validate_char(char _type)
+Gets a type and checks if the passed parameter is present in a structure of valid conversion specifiers. Next, returns if the parameter is valid or invalid.
+
+
+## Return Value
+
+
+Upon successful return, the **_printf()** function return the number of characters printed (excluding the null byte used to end output to strings).
+
+If an output error is encountered, a negative value is returned.
+
+
+## Examples
+
+**#include "holberton.h"**
+
+_printf("Hello Holberton"); **// the output will be: Hello Holberton**
+
+_printf("%c", 'H'); // **the output will be: H**
+
+_printf("%s", "Hello Holberton"); **// the output will be: Hello Holberton**
+
+_printf("%!\n"); **// the output will be '%!'**
+
+_printf("Complete the sentence: You %s nothing, Jon Snow.\n", "know"); **// the output will be: Complete the sentence: You know nothing, Jon Snow.**
+
+_printf("%        s", "Hello"); **// the output will be: Hello**
+
+_printf("%        k"); **// the output will be: % k**
+
+## Author
+
+**_printf()** is written and maintained by **Jorge Salazar** (jormao@gmail.com) and **Santiago Arboleda Londoño** (monoprosito@gmail.com).
